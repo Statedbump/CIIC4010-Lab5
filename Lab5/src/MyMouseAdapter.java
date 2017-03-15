@@ -77,30 +77,78 @@ public class MyMouseAdapter extends MouseAdapter {
 					} else {
 						//Released the mouse button on the same cell where it was pressed
 						if ((gridX == 0) || (gridY == 0)) {
+							
+							Color[] colors;
+							colors = new Color[5];
+							colors[0]=Color.YELLOW;
+							colors[1]=Color.MAGENTA;
+							colors[2]=Color.BLACK;
+							colors[3]=new Color(0x964B00);
+							colors[4]=new Color(0xB57EDC);
+							
+							Color newColor = null;
+								if(!(gridX==0 && gridY==0)){
+									if(gridX==0){
+										for(int i =0; i<9; i++){
+											newColor = colors[generator.nextInt(5)];
+											myPanel.colorArray[i+1][myPanel.mouseDownGridY]=newColor;
+											
+										}
+									}
+									if(gridY == 0){
+										for(int j = 1; j<10 ; j++){
+											newColor = colors[generator.nextInt(5)];
+											myPanel.colorArray[myPanel.mouseDownGridX][j] = newColor;
+											
+										}
+									}
+										
+								}
 							//On the left column and on the top row... do nothing
+						
 						} else {
 							//On the grid other than on the left column and on the top row:
+							//I decided to create an array with all the given Colors
+							Color[] colors;
+							colors = new Color[5];
+							colors[0]=Color.YELLOW;
+							colors[1]=Color.MAGENTA;
+							colors[2]=Color.BLACK;
+							colors[3]=new Color(0x964B00);
+							colors[4]=new Color(0xB57EDC);
+							
 							Color newColor = null;
+							//Afterwards I proceeded it with a do while, because it runs at least once
+							do{
 							switch (generator.nextInt(5)) {
 							case 0:
-								newColor = Color.YELLOW;
+								newColor = colors[0];
 								break;
 							case 1:
-								newColor = Color.MAGENTA;
+								newColor = colors[1];
 								break;
 							case 2:
-								newColor = Color.BLACK;
+								newColor = colors[2];
 								break;
 							case 3:
-								newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
+								newColor = colors[3];   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
 								break;
 							case 4:
-								newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
+								newColor = colors[4];   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
 								break;
+							}//Here I added an if statement so that i can change the color it its the same as the one that was last saved
+							if(newColor.equals(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY])){
+								newColor = colors[generator.nextInt(5)];
+								//I decided that for the new color it would be pick randomly
 							}
+							
+							
+							}while(newColor.equals(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY]));
+							
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 							myPanel.repaint();
 						}
+						
 					}
 				}
 			}
