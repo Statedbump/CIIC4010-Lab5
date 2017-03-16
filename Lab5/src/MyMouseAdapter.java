@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
 	private Random generator = new Random();
+	
 public Color randColor(){
 		
 		Color[] colors;
@@ -78,6 +79,7 @@ public Color randColor(){
 			myPanel.y = y;
 			int gridX = myPanel.getGridX(x, y);
 			int gridY = myPanel.getGridY(x, y);
+			
 			if ((myPanel.mouseDownGridX == -1) || (myPanel.mouseDownGridY == -1)) {
 				//Had pressed outside
 				//Do nothing
